@@ -14,15 +14,14 @@ public:
     }
 };
 
-void insert_at_tail(Node *&head, int val)
+void insert_at_tail(Node *&head, int v)
 {
-    Node *newNode = new Node(val);
+    Node *newNode = new Node(v);
     if (head == NULL)
     {
         head = newNode;
         cout << endl
-             << endl
-             << "Inserted at Head using insert at tail" << endl
+             << "Inserted at Head" << endl
              << endl;
         return;
     }
@@ -33,14 +32,41 @@ void insert_at_tail(Node *&head, int val)
         tmp = tmp->next;
     }
     tmp->next = newNode;
+
     cout << endl
-         << endl
-         << "Inserted at Tail successfully..." << endl
+         << "Inserted at Tail" << endl
+         << endl;
+}
+
+void insert_at_pos(Node *head, int pos, int v)
+{
+    Node *newNode = new Node(v);
+    Node *tmp = head;
+    for (int i = 1; i <= pos - 1; i++)
+    {
+        tmp = tmp->next;
+    }
+    newNode->next = tmp->next;
+    tmp->next = newNode;
+
+    cout << endl
+         << "Inserted at position" << pos << endl
+         << endl;
+}
+
+void insert_at_head(Node *&head, int v)
+{
+    Node *newNode = new Node(v);
+    newNode->next = head;
+    head = newNode;
+    cout << endl
+         << "Inserted at Head" << endl
          << endl;
 }
 
 void print_linkedList(Node *head)
 {
+    cout << "Your Linked List: ";
     Node *tmp = head;
     while (tmp != NULL)
     {
@@ -50,40 +76,10 @@ void print_linkedList(Node *head)
     cout << endl;
 }
 
-void insert_at_head(Node *&head, int val)
-{
-    Node *newNode = new Node(val);
-    newNode->next = head;
-    head = newNode;
-
-    cout << endl
-         << endl
-         << "Inserted at Head successfully..." << endl
-         << endl;
-}
-
-void insert_at_position(Node *head, int pos, int val)
-{
-    Node *newNode = new Node(val);
-
-    Node *tmp = head;
-    for (int i = 0; i < pos - 1; i++)
-    {
-        tmp = tmp->next;
-    }
-    newNode->next = tmp->next;
-    tmp->next = newNode;
-
-    cout << endl
-         << endl
-         << "Inserted at" << pos << "successfully..." << endl
-         << endl;
-}
-
-void delete_from_pos(Node *head, int pos)
+void delete_from_position(Node *head, int pos)
 {
     Node *tmp = head;
-    for (int i = 0; i < pos - 1; i++)
+    for (int i = 1; i <= pos - 1; i++)
     {
         tmp = tmp->next;
     }
@@ -99,53 +95,56 @@ int main()
     {
         int op;
         cout << "Option 1: Insert at Tail" << endl;
-        cout << "Option 2: Insert at Head" << endl;
+        cout << "Option 2: Print Linked List" << endl;
         cout << "Option 3: Insert at Position" << endl;
-        cout << "Option 4: Delete Position" << endl;
-        cout << "Option 5: Print Linked List" << endl;
-        cout << "Option 6: Terminate" << endl;
+        cout << "Option 4: Insert at Head" << endl;
+        cout << "Option 5: Delete from Position" << endl;
+        cout << "Option 5: Terminate" << endl;
 
+        cout << endl
+             << endl
+             << "Select your option: ";
         cin >> op;
         if (op == 1)
         {
-            int val;
             cout << "Enter your value: ";
+            int val;
             cin >> val;
             insert_at_tail(head, val);
         }
         else if (op == 2)
         {
-            int val;
-            cout << "Enter your value: ";
-            cin >> val;
-            insert_at_head(head, val);
+            print_linkedList(head);
         }
         else if (op == 3)
         {
-            int val;
-            int pos;
-            cout << "Enter your position: ";
+            int v, pos;
+            cout << "Enter position: ";
             cin >> pos;
-
-            cout << "Enter your value: ";
-            cin >> val;
-            insert_at_position(head, pos, val);
+            cout << "Enter value: ";
+            cin >> v;
+            if (pos == 0)
+            {
+                insert_at_head(head, v);
+            }
+            else
+            {
+                insert_at_pos(head, pos, v);
+            }
         }
         else if (op == 4)
+        {
+            int v;
+            cout << "Enter your value: ";
+            cin >> v;
+            insert_at_head(head, v);
+        }
+        else if (op == 5)
         {
             int pos;
             cout << "Enter your delete position: ";
             cin >> pos;
-            delete_from_pos(head, pos);
-        }
-        else if (op == 5)
-        {
-            cout << "Your Linked List: ";
-            print_linkedList(head);
-        }
-        else if (op == 6)
-        {
-            break;
+            delete_from_position(head, pos);
         }
     }
     return 0;
