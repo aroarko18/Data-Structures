@@ -142,6 +142,7 @@ int main()
     c->prev = b;
 
     int pos, val;
+
     cin >> pos >> val;
     delete_head(head);
     // delete_at_position(head, 2);
