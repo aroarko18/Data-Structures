@@ -35,7 +35,7 @@ Node *input_tree()
         q.pop();
 
         int l, r;
-        cin >> l, r;
+        cin >> l >> r;
         Node *myLeft;
         Node *myRight;
         if (l == -1)
